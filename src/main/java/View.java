@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class View {
     PresentationMod model;
@@ -35,10 +37,11 @@ public class View {
     }
 
     private void loadFromPMod(){
-        if (notLoadView){
-            notLoadView = false;
-
-        }
+        txtArtist.setText(model.getArtist());
+        txtTitle.setText(model.getTitle());
+        chkClassical.setSelected(model.getIsClassical());
+        txtComposer.setEditable(model.shouldEnableComposer());
+        txtComposer.setText(model.getComposer());
     }
 
     private void SyncWithPMod() {
@@ -55,6 +58,12 @@ public class View {
 
         frame.add(b1);
         albumList = new JList(model.getAlbumList());
+        albumList.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                model.setSelectedAlbumNumber(albumList.getSelectedIndex()+1);
+                loadFromPMod();
+            }
+        });
         b1.add(albumList);
         b1.add(b2);
 
