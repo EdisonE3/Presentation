@@ -15,9 +15,7 @@ public class DsAlbum {
     }
 
     public void acceptChanges(){
-        for (Album album : albumsCache) {
-            albums.set(album.rowId - 1, album);
-        }
+        albums.addAll(albumsCache);
         albumsCache.clear();
     }
 }
