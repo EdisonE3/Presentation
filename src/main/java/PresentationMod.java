@@ -2,6 +2,7 @@ public class PresentationMod {
     private DsAlbum data;
     private int selectedAlbumNumber;
     private Album selectedAlbum;
+    private boolean modified;
 
     public static DsAlbum AlbumDataSet() {
         DsAlbum result = new DsAlbum();
@@ -16,7 +17,15 @@ public class PresentationMod {
     public PresentationMod(DsAlbum data) {
         this.data = data;
         this.selectedAlbumNumber = 1;
-        this.selectedAlbum = DsAlbum.albums.get(0);
+        this.selectedAlbum = data.albums.get(0);
+    }
+
+    private void modify(){
+        this.modified = true;
+    }
+
+    private void finished(){
+        this.modified = false;
     }
 
     public DsAlbum getData() {
@@ -33,7 +42,7 @@ public class PresentationMod {
 
     public void setSelectedAlbumNumber(int selectedAlbumNumber) {
         this.selectedAlbumNumber = selectedAlbumNumber;
-        this.selectedAlbum = DsAlbum.albums.get(selectedAlbumNumber - 1);
+        this.selectedAlbum = data.albums.get(selectedAlbumNumber - 1);
     }
 
     public String getTitle() {
@@ -42,6 +51,7 @@ public class PresentationMod {
 
     public void setTitle(String value) {
         selectedAlbum.title = value;
+        modify();
     }
 
     public String getArtist() {
@@ -50,6 +60,7 @@ public class PresentationMod {
 
     public void setArtist(String value) {
         selectedAlbum.artist = value;
+        modify();
     }
 
     public boolean getIsClassical() {
@@ -58,6 +69,7 @@ public class PresentationMod {
 
     public void setIsClassical(boolean value) {
         selectedAlbum.isClassical = value;
+        modify();
     }
 
     public String getComposer() {
@@ -67,6 +79,7 @@ public class PresentationMod {
     public void setComposer(String value) {
         if (selectedAlbum.isClassical) {
             selectedAlbum.composer = value;
+            modify();
         }
     }
 
@@ -76,6 +89,26 @@ public class PresentationMod {
 
     public boolean shouldEnableComposer() {
         return selectedAlbum.isClassical;
+    }
+
+    public boolean hasRowChanged(){
+        return this.modified;
+    }
+
+    public boolean isApplyEnabled(){
+        return this.modified;
+    }
+
+    public boolean isCancelEnabled(){
+        return this.modified;
+    }
+
+    public String[] getAlbumList(){
+        String[] result = new String[data.albums.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = data.albums.get(i).title;
+        }
+        return result;
     }
 
 

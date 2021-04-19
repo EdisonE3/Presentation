@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class DsAlbum {
-    public static ArrayList<Album> albums = new ArrayList<>();
+    public ArrayList<Album> albums;
     public ArrayList<Album> albumsCache;
 
     public DsAlbum() {
+        this.albums = new ArrayList<>();
         this.albumsCache = new ArrayList<>();
     }
 
