@@ -1,12 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,7 +10,7 @@ public class View {
     TextField txtArtist;
     JCheckBox chkClassical;
     TextField txtComposer;
-    JList albumList;
+    JList<String> albumList;
     JButton apply;
     JButton cancel;
 
@@ -44,21 +37,15 @@ public class View {
         txtComposer.setText(model.getComposer());
     }
 
-    private void SyncWithPMod() {
-        if (notLoadView) {
-            saveToPMod();
-            loadFromPMod();
-        }
-    }
-
     private void createView(){
-        JFrame frame=new JFrame("Java示例程序");
+        JFrame frame=new JFrame("Album");
         Box b1=Box.createHorizontalBox();    //创建横向Box容器
         Box b2=Box.createVerticalBox();    //创建纵向Box容器
 
         frame.add(b1);
-        albumList = new JList(model.getAlbumList());
+        albumList = new JList<String>(model.getAlbumList());
         albumList.addMouseListener(new MouseAdapter(){
+            @Override
             public void mouseClicked(MouseEvent e){
                 model.setSelectedAlbumNumber(albumList.getSelectedIndex()+1);
                 loadFromPMod();
@@ -74,13 +61,30 @@ public class View {
 
         chkClassical = new JCheckBox();
         txtComposer = new TextField();
+        chkClassical.addActionListener(ItemEvent->{
+            txtComposer.setEditable(chkClassical.isSelected());
+            if (!chkClassical.isSelected()){
+                txtComposer.setText("");
+            }
+        });
         txtComposer.setSize(200, 50);
         txtComposer.setEditable(model.shouldEnableComposer());
 
         apply = new JButton("Apply");
-        apply.setSize(new Dimension(20, 20));
+        apply.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                saveToPMod();
+                loadFromPMod();
+            }
+        });
         cancel = new JButton("Cancel");
-        cancel.setSize(new Dimension(20, 20));
+        cancel.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                loadFromPMod();
+            }
+        });
 
         b2.add(txtArtist);
         b2.add(txtTitle);
