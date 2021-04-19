@@ -1,3 +1,5 @@
+package com.iluwatar.presentation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -33,7 +35,7 @@ public class View {
         txtArtist.setText(model.getArtist());
         txtTitle.setText(model.getTitle());
         chkClassical.setSelected(model.getIsClassical());
-        txtComposer.setEditable(model.shouldEnableComposer());
+        txtComposer.setEditable(model.getIsClassical());
         txtComposer.setText(model.getComposer());
     }
 
@@ -43,7 +45,7 @@ public class View {
         Box b2=Box.createVerticalBox();    //创建纵向Box容器
 
         frame.add(b1);
-        albumList = new JList<String>(model.getAlbumList());
+        albumList = new JList<>(model.getAlbumList());
         albumList.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -68,7 +70,7 @@ public class View {
             }
         });
         txtComposer.setSize(200, 50);
-        txtComposer.setEditable(model.shouldEnableComposer());
+        txtComposer.setEditable(model.getIsClassical());
 
         apply = new JButton("Apply");
         apply.addMouseListener(new MouseAdapter(){

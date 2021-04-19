@@ -1,4 +1,4 @@
-/*
+package com.iluwatar.presentation;/*
  * The MIT License
  * Copyright © 2014-2021 Ilkka Seppälä
  *
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * Simple App test
+ * Simple com.iluwatar.presentation.App test
  */
 class AppTest {
 

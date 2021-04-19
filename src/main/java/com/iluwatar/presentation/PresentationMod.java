@@ -1,9 +1,10 @@
+package com.iluwatar.presentation;
+
 public class PresentationMod {
-    private DsAlbum data;
+    private final DsAlbum data;
     private int selectedAlbumNumber;
     private Album selectedAlbum;
-    private boolean modified;
-
+    
     public static DsAlbum AlbumDataSet() {
         DsAlbum result = new DsAlbum();
         result.addAlbums(1, "HQ", "Roy Harper", false, null);
@@ -19,30 +20,10 @@ public class PresentationMod {
         this.selectedAlbumNumber = 1;
         this.selectedAlbum = data.albums.get(0);
     }
-
-    private void modify(){
-        this.modified = true;
-    }
-
-    private void finished(){
-        this.modified = false;
-    }
-
-    public DsAlbum getData() {
-        return data;
-    }
-
-    public void setData(DsAlbum data) {
-        this.data = data;
-    }
-
-    public int getSelectedAlbumNumber() {
-        return selectedAlbumNumber;
-    }
-
+    
     public void setSelectedAlbumNumber(int selectedAlbumNumber) {
         this.selectedAlbumNumber = selectedAlbumNumber;
-        this.selectedAlbum = data.albums.get(selectedAlbumNumber - 1);
+        this.selectedAlbum = data.albums.get(this.selectedAlbumNumber - 1);
     }
 
     public String getTitle() {
@@ -51,7 +32,6 @@ public class PresentationMod {
 
     public void setTitle(String value) {
         selectedAlbum.title = value;
-        modify();
     }
 
     public String getArtist() {
@@ -60,7 +40,6 @@ public class PresentationMod {
 
     public void setArtist(String value) {
         selectedAlbum.artist = value;
-        modify();
     }
 
     public boolean getIsClassical() {
@@ -69,7 +48,6 @@ public class PresentationMod {
 
     public void setIsClassical(boolean value) {
         selectedAlbum.isClassical = value;
-        modify();
     }
 
     public String getComposer() {
@@ -79,28 +57,8 @@ public class PresentationMod {
     public void setComposer(String value) {
         if (selectedAlbum.isClassical) {
             selectedAlbum.composer = value;
-            modify();
+            
         }
-    }
-
-    public String getFormTitle(){
-        return "Album: " + getTitle();
-    }
-
-    public boolean shouldEnableComposer() {
-        return selectedAlbum.isClassical;
-    }
-
-    public boolean hasRowChanged(){
-        return this.modified;
-    }
-
-    public boolean isApplyEnabled(){
-        return this.modified;
-    }
-
-    public boolean isCancelEnabled(){
-        return this.modified;
     }
 
     public String[] getAlbumList(){

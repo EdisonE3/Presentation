@@ -1,3 +1,5 @@
+package com.iluwatar.presentation;
+
 public class Album {
     int rowId;
     String title;
